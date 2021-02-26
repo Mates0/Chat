@@ -14,19 +14,19 @@ public class Main {
             BufferedReader br = new BufferedReader(new FileReader("conversations.txt"));
             BufferedReader brcount = new BufferedReader(new FileReader("count.txt"));
             String content = "";
-            String nextline = br.readLine();
-            if (br.readLine() == null || br.readLine().equals("0")) {
+            String linecount = brcount.readLine();
+            if (linecount == null || linecount.equals("0")) {
                 System.out.println("--Žádné příchozí zprávy--");
             } else {
-                System.out.println("V databázi máš" + " " + brcount.readLine() + " " + "zprávy:");
+                System.out.println("V databázi máš" + " " + linecount + " " + "zprávy:");
                 System.out.println("------------------------");
-                while (nextline != null) { //* TODO
+                String nextline = br.readLine();
+                while (nextline != null) {
+                    System.out.println(nextline);
                     content += nextline;
                     nextline = br.readLine();
-                    System.out.println(nextline);
                 }
                 System.out.println("------------------------");
-                br.close(); //
             }
             BufferedWriter bw = new BufferedWriter(new FileWriter("conversations.txt"));
             BufferedWriter bwcount = new BufferedWriter(new FileWriter("count.txt"));
@@ -36,8 +36,6 @@ public class Main {
                 if (message.equals("!konec")) {
                     String conversion = Integer.toString(count);
                     bwcount.write(conversion);
-                    br.close();
-                    brcount.close();
                     bw.close();
                     bwcount.close();
                     System.exit(0);
